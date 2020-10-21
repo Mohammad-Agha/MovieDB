@@ -65,7 +65,37 @@ app.get('/search', (req, res) => {
   res.status(status).send(result)
 })
 
-// Creating route to hello
+// Here we are mimicing a database
+const movies = [
+  { title: 'Jaws', year: 1975, rating: 8 },
+  { title: 'Avatar', year: 2009, rating: 7.8 },
+  { title: 'Brazil', year: 1985, rating: 8 },
+  { title: 'الإرهاب والكباب‎', year: 1992, rating: 6.2 }
+]
+
+// Creating a route to get all movies
+app.get('/movies/get', (req, res) => {
+  const result = {
+    status: 200,
+    data: movies
+  }
+  res.status(200).send(result)
+})
+
+// Creating a route to add a movie
+app.post('/movies/add', (req, res) => {
+  res.status(200).send('Add Movie')
+})
+
+// Creating a route to edit a movie
+app.patch('/movies/edit', (req, res) => {
+  res.status(200).send('Edit Movie')
+})
+
+// Creating a route to delete a movie
+app.delete('/movies/delete', (req, res) => {
+  res.status(200).send('Delete Movie')
+})
 
 // We start listening to the server on port 3000
 app.listen(3000)
