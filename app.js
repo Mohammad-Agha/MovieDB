@@ -100,7 +100,7 @@ app.get('/movies/get/id/:id', (req, res) => {
         message: `The movie ${req.params.id} doesn't exist`
       }
     }
-    res.status(status).send(result);
+    res.status(status).send(result)
 })
 
 // Creating a route to gell all movies ordered by date
@@ -138,7 +138,41 @@ app.get('/movies/get/by-title', (req, res) => {
 
 // Creating a route to add a movie
 app.post('/movies/add', (req, res) => {
-  res.status(200).send('Add Movie')
+  if(req.query){
+    let result, status, yearBoolean = false, yearString, yearInt, data, message, error, rating = 4
+    if(req.query.year) {
+      yearString = req.query.year
+      yearInt = parseInt(req.query.year)
+      if(yearString.length <= 4 && !isNaN(yearInt)) {
+        yearBoolean = true
+      }
+    }
+    if(!req.query.title || !yearBoolean) {
+      status = 403
+      error = true
+      message = 'You cannot create a movie without providing a title and a year'
+      result = {
+        status,
+        error,
+        message
+      }
+    }
+    else {
+      if(req.query.rating) rating = req.query.rating
+      const newMovie = {
+        title: req.query.title,
+        year: req.query.year,
+        rating
+      }
+      status = 200
+      movies.push(newMovie)
+      result = {
+        status,
+        data: newMovie
+      }
+    }
+    res.status(status).send(result)
+  }
 })
 
 // Creating a route to edit a movie
