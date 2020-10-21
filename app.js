@@ -26,8 +26,46 @@ app.get('/time', (req, res) => {
     status: 200,
     message: timeString
   }
-  res.send(result);
+  res.send(result)
 })
+
+// Creating route to hello with parameters
+app.get('/hello/:id', (req, res) => {
+  const message = `Hello, ${req.params.id}`
+  const result = {
+    status: 200,
+    message
+  }
+  res.send(result)
+})
+
+// Creating route to search with a string
+app.get('/search', (req, res) => {
+  let message, result, data, status, error;
+  if(req.query.s) {
+    status = 200
+    message = "Ok"
+    data = req.params.search
+    result = {
+      status,
+      message,
+      data
+    }
+  }
+  else {
+    status = 500
+    error = true
+    message = "You have to provide a search"
+    result = {
+      status,
+      error,
+      message
+    }
+  }
+  res.send(result)
+})
+
+// Creating route to hello
 
 // We start listening to the server on port 3000
 app.listen(3000)
