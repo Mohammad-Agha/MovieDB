@@ -168,7 +168,7 @@ app.post('/movies/add', (req, res) => {
       movies.push(newMovie)
       result = {
         status,
-        data: newMovie
+        data: movies
       }
     }
     res.status(status).send(result)
@@ -181,8 +181,8 @@ app.patch('/movies/edit', (req, res) => {
 })
 
 // Creating a route to delete a movie
-app.delete('/movies/delete', (req, res) => {
-  res.status(200).send('Delete Movie')
+app.delete('/movies/delete/:id', (req, res) => {
+  
 })
 
 // We start listening to the server on port 3000
