@@ -82,6 +82,39 @@ app.get('/movies/get', (req, res) => {
   res.status(200).send(result)
 })
 
+// Creating a route to gell all movies ordered by date
+app.get('/movies/get/by-date', (req, res) => {
+  const sortedMoviesByDate = [...movies]
+  sortedMoviesByDate.sort((b, a) => (a.year > b.year) ? 1 : ((b.year > a.year) ? -1 : 0)) // source: https://stackoverflow.com/questions/1129216/sort-array-of-objects-by-string-property-value
+  const result = {
+    status: 200,
+    data: sortedMoviesByDate
+  }
+  res.status(200).send(result)
+})
+
+// Creating a route to gell all movies ordered by rating
+app.get('/movies/get/by-rating', (req, res) => {
+  const sortedMoviesByRating = [...movies]
+  sortedMoviesByRating.sort((b, a) => (a.rating > b.rating) ? 1 : ((b.rating > a.rating) ? -1 : 0))
+  const result = {
+    status: 200,
+    data: sortedMoviesByRating
+  }
+  res.status(200).send(result)
+})
+
+// Creating a route to gell all movies ordered by title
+app.get('/movies/get/by-title', (req, res) => {
+  const sortedMoviesByTitle = [...movies];
+  sortedMoviesByTitle.sort((a, b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0))
+  const result = {
+    status: 200,
+    data: sortedMoviesByTitle
+  }
+  res.status(200).send(result)
+})
+
 // Creating a route to add a movie
 app.post('/movies/add', (req, res) => {
   res.status(200).send('Add Movie')
