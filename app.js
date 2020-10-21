@@ -1,4 +1,5 @@
 // Importing the modules we need
+const e = require('express')
 const express = require('express')
 
 // Execute express module
@@ -176,8 +177,35 @@ app.post('/movies/add', (req, res) => {
 })
 
 // Creating a route to edit a movie
-app.patch('/movies/edit', (req, res) => {
-  res.status(200).send('Edit Movie')
+app.patch('/movies/edit/:id', (req, res) => {
+  let id = parseInt(req.params.id)
+  if(id < 0 || id >= movies.length || isNaN(id)) {
+    res.status(404).send({
+      status: 404,
+      error: true,
+      message: 'The movie id does not exist'
+    })
+  }
+  else {
+    if(req.query) {
+      let editedMovie = movies[id]
+      for(let property in req.query) {
+        if(editedMovie.hasOwnProperty(property)) {
+          if(property == "rating") {
+            editedMovie[property] = parseInt(req.query[property])
+          }
+          else {
+            editedMovie[property] = req.query[property]
+          }
+        }
+      }
+      movies[id] = editedMovie;
+      res.status(200).send({
+        status: 200,
+        data: movies
+      })
+    }
+  }
 })
 
 // Creating a route to delete a movie
@@ -191,10 +219,10 @@ app.delete('/movies/delete/:id', (req, res) => {
     })
   }
   else {
-    movies.splice(req.params.id, 1);
+    movies.splice(req.params.id, 1)
     res.status(200).send({
       status: 200,
-      message: movies
+      data: movies
     })
   }
 })
