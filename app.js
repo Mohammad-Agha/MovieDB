@@ -41,7 +41,7 @@ app.get('/hello/:id', (req, res) => {
 
 // Creating route to search with a string
 app.get('/search', (req, res) => {
-  let message, result, data, status, error;
+  let message, result, data, status, error
   if(req.query.s) {
     status = 200
     message = "Ok"
@@ -82,6 +82,27 @@ app.get('/movies/get', (req, res) => {
   res.status(200).send(result)
 })
 
+// Creating a route to get a movie
+app.get('/movies/get/id/:id', (req, res) => {
+  let result, status, message, error
+    if(req.params.id >= 0 && req.params.id < movies.length) {
+      status = 200
+      result = {
+        status,
+        data: movies[req.params.id]
+      }
+    }
+    else {
+      status = 404,
+      result = {
+        status,
+        error: true,
+        message: `The movie ${req.params.id} doesn't exist`
+      }
+    }
+    res.status(status).send(result);
+})
+
 // Creating a route to gell all movies ordered by date
 app.get('/movies/get/by-date', (req, res) => {
   const sortedMoviesByDate = [...movies]
@@ -106,7 +127,7 @@ app.get('/movies/get/by-rating', (req, res) => {
 
 // Creating a route to gell all movies ordered by title
 app.get('/movies/get/by-title', (req, res) => {
-  const sortedMoviesByTitle = [...movies];
+  const sortedMoviesByTitle = [...movies]
   sortedMoviesByTitle.sort((a, b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0))
   const result = {
     status: 200,
