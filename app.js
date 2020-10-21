@@ -6,7 +6,7 @@ const app = express()
 
 // Creating route to home
 app.get('/', (req, res) => {
-  res.send('Ok')
+  res.status(200).send('Ok')
 })
 
 // Creating route to test
@@ -15,7 +15,7 @@ app.get('/test', (req, res) => {
     status: 200,
     message: "Ok"
   }
-  res.send(result)
+  res.status(200).send(result)
 })
 
 // Creating route to time
@@ -26,7 +26,7 @@ app.get('/time', (req, res) => {
     status: 200,
     message: timeString
   }
-  res.send(result)
+  res.status(200).send(result)
 })
 
 // Creating route to hello with parameters
@@ -36,7 +36,7 @@ app.get('/hello/:id', (req, res) => {
     status: 200,
     message
   }
-  res.send(result)
+  res.status(200).send(result)
 })
 
 // Creating route to search with a string
@@ -62,7 +62,7 @@ app.get('/search', (req, res) => {
       message
     }
   }
-  res.send(result)
+  res.status(status).send(result)
 })
 
 // Creating route to hello
