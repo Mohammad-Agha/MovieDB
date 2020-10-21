@@ -182,7 +182,21 @@ app.patch('/movies/edit', (req, res) => {
 
 // Creating a route to delete a movie
 app.delete('/movies/delete/:id', (req, res) => {
-  
+  let id = parseInt(req.params.id)
+  if(id < 0 || id >= movies.length || isNaN(id)) {
+    res.status(404).send({
+      status: 404,
+      error: true,
+      message: 'The movie id does not exist'
+    })
+  }
+  else {
+    movies.splice(req.params.id, 1);
+    res.status(200).send({
+      status: 200,
+      message: movies
+    })
+  }
 })
 
 // We start listening to the server on port 3000
