@@ -34,14 +34,14 @@ Updating/Deleting a user is the same as before didn't do it because it will just
 
 * API routes for app2.js
   * For users
-    * `/user/register` adds a user (values are passed in the body of the request)
-    * `/user/login` user login (values are passed in the body of the request)
+    * `/user/register` adds a user (values are passed in the body of the request, Method should be POST)
+    * `/user/login` user login (values are passed in the body of the request, Method should be POST)
   
   * For movies
     * Doing all these below api calls requires the user to be logged i.e he has a token, make sure to get the token in the response from the login route and add it to the header of the request as `auth-token`, otherwise all the below requests will return `Access denied, you should be logged in`
     * `/movies` returns all movies (method should be GET)
-    * `/movies/:movieId` returns the movie having the specified ID (method should be GET)
     * `/movies` adds a movie (method should be POST and values are passed in the body of the request)
+    * `/movies/:movieId` returns the movie having the specified ID (method should be GET)
     * `/movies/:movieId` deletes a movie with the specified ID (method should be DELETE and values are passed in the body of the request)
     * `/movies/:movieId` updates a movie with the specified ID (method should be PATCH and values are passed in the body of the request)
 
